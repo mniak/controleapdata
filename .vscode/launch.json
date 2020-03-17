@@ -8,7 +8,7 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/ControleApData.dll",
             "args": [
-                "--company", "braspag",
+                "--company", "%COMPANY%",
                 "-U", "%USERNAME%",
                 "-P", "%PASSWORD%"
             ],
