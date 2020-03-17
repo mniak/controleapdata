@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ControleApData.Client.Parser.SyntaxTree
+namespace ApdataTimecardFixer.Client.Parser.SyntaxTree
 {
     /// <summary>
     /// Represents a JSON array:

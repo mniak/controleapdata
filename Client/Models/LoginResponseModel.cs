@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ControleApData.Client.Models
+namespace ApdataTimecardFixer.Client.Models
 {
     public class LoginResponseModel
     {

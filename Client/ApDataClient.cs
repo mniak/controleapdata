@@ -1,9 +1,9 @@
-﻿using ControleApData.Client.Models;
+﻿using ApdataTimecardFixer.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ControleApData.Client
+namespace ApdataTimecardFixer.Client
 {
     public class ApDataClient
     {

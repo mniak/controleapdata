@@ -1,7 +1,7 @@
-﻿using ControleApData.Client.Parser.SyntaxTree;
+﻿using ApdataTimecardFixer.Client.Parser.SyntaxTree;
 using System;
 
-namespace ControleApData.Client.Parser
+namespace ApdataTimecardFixer.Client.Parser
 {
     internal class JSONDate : IJSONValue
     {

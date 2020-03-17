@@ -1,9 +1,9 @@
-﻿using ControleApData.Client.Parser.SyntaxTree;
+﻿using ApdataTimecardFixer.Client.Parser.SyntaxTree;
 using Sprache;
 using System;
 using System.Collections.Generic;
 
-namespace ControleApData.Client.Parser
+namespace ApdataTimecardFixer.Client.Parser
 {
     /// <summary>
     /// Contains the entire JSON Parser

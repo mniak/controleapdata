@@ -1,4 +1,4 @@
-﻿namespace ControleApData.Client.Models
+﻿namespace ApdataTimecardFixer.Client.Models
 {
     public enum TipoDeDia
     {

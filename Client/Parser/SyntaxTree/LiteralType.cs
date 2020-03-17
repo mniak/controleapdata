@@ -1,4 +1,4 @@
-﻿namespace ControleApData.Client.Parser.SyntaxTree
+﻿namespace ApdataTimecardFixer.Client.Parser.SyntaxTree
 {
     /// <summary>
     /// A list of the types a JSON literal value can be

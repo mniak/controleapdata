@@ -1,7 +1,7 @@
 using System;
 using CommandLine;
 
-namespace ControleApData
+namespace ApdataTimecardFixer
 {
     public class Arguments
     {

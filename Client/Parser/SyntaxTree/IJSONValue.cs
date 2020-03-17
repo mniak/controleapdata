@@ -1,4 +1,4 @@
-﻿namespace ControleApData.Client.Parser.SyntaxTree
+﻿namespace ApdataTimecardFixer.Client.Parser.SyntaxTree
 {
     /// <summary>
     /// Represents a JSON value

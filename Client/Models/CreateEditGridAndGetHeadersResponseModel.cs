@@ -1,4 +1,4 @@
-﻿namespace ControleApData.Client.Models
+﻿namespace ApdataTimecardFixer.Client.Models
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;

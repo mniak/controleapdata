@@ -1,18 +1,18 @@
-﻿using ControleApData.Client;
-using ControleApData.Client.Models;
+﻿using ApdataTimecardFixer.Client;
+using ApdataTimecardFixer.Client.Models;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ControleApData
+namespace ApdataTimecardFixer
 {
     public class Worker
     {
-        private readonly ApDataClient apDataClient;
+        private readonly Client.ApDataClient apDataClient;
         private readonly Arguments args;
 
-        public Worker(ApDataClient apDataClient, Arguments args)
+        public Worker(Client.ApDataClient apDataClient, Arguments args)
         {
             this.apDataClient = apDataClient ?? throw new ArgumentNullException(nameof(apDataClient));
             this.args = args ?? throw new ArgumentNullException(nameof(args));

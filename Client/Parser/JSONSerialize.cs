@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace ControleApData.Client.Parser
+namespace ApdataTimecardFixer.Client.Parser
 {
     /// <summary>
     /// Serializes objects as JSON text

@@ -1,8 +1,8 @@
-﻿using ControleApData.Client.Parser.SyntaxTree;
+﻿using ApdataTimecardFixer.Client.Parser.SyntaxTree;
 using System;
 using System.Collections;
 
-namespace ControleApData.Client.Parser
+namespace ApdataTimecardFixer.Client.Parser
 {
     /// <summary>
     /// Maps IJSONValue objects onto other objects

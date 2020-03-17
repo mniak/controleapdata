@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ControleApData.Client.Parser.SyntaxTree
+namespace ApdataTimecardFixer.Client.Parser.SyntaxTree
 {
     /// <summary>
     /// Represents a literal value in JSON:

@@ -1,4 +1,4 @@
-﻿using ControleApData.Client.Parser;
+﻿using ApdataTimecardFixer.Client.Parser;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ControleApData.Client
+namespace ApdataTimecardFixer.Client
 {
     public class ApDataLowLevelClient
     {

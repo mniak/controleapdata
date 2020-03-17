@@ -1,6 +1,6 @@
-﻿using ControleApData.Client.Parser.SyntaxTree;
+﻿using ApdataTimecardFixer.Client.Parser.SyntaxTree;
 
-namespace ControleApData.Client.Parser
+namespace ApdataTimecardFixer.Client.Parser
 {
     /// <summary>
     /// Interfaces kindly with the parser and mapper

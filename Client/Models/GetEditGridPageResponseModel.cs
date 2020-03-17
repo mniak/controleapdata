@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace ControleApData.Client.Models
+namespace ApdataTimecardFixer.Client.Models
 {
     public class GetEditGridPageResponseModel
     {

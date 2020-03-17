@@ -13,4 +13,4 @@ RUN dotnet publish -c Release -o publish
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
 COPY --from=build-env /app/publish .
-ENTRYPOINT ["dotnet", "ControleApData.dll"]
+ENTRYPOINT ["dotnet", "ApdataTimecardFixer.dll"]
