@@ -1,4 +1,4 @@
-﻿namespace ControleApData
+﻿namespace ControleApData.Client.Models
 {
     public enum StatusDoDia
     {
