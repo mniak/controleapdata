@@ -28,7 +28,7 @@ namespace ControleApData.Client
             if (result.Success)
             {
                 SessionId = result.SessionId;
-                Ts = lowLevelClient.GetCookie("ts");
+                Ts = await lowLevelClient.GetCookieAsync("ts");
             }
             return result;
         }

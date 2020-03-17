@@ -10,27 +10,24 @@ namespace ControleApData
     public class Worker
     {
         private readonly ApDataClient apDataClient;
+        private readonly Arguments args;
 
-        public Worker(ApDataClient apDataClient)
+        public Worker(ApDataClient apDataClient, Arguments args)
         {
             this.apDataClient = apDataClient ?? throw new ArgumentNullException(nameof(apDataClient));
+            this.args = args ?? throw new ArgumentNullException(nameof(args));
         }
 
         public async Task Work()
         {
-            const int Year = 2020;
-            const int Month = 1;
-
             Console.WriteLine("-> Login");
-            var loginResponse = await apDataClient.Login(
-                Environment.GetEnvironmentVariable("USERNAME"),
-                Environment.GetEnvironmentVariable("PASSWORD"));
+            var loginResponse = await apDataClient.Login(args.Username, args.Password);
 
             Console.WriteLine("-> Load screen");
             var gridMetadata = await apDataClient.CreateEditGridAndGetHeaders("ScreenConBatidasReaisClassifsProvider");
 
             Console.WriteLine("-> Select month");
-            var setProviderStatus = await apDataClient.SetProviderParams(gridMetadata.Hwd, Year, Month, loginResponse.SelectedEmployee);
+            var setProviderStatus = await apDataClient.SetProviderParams(gridMetadata.Hwd, args.Year, args.Month, loginResponse.SelectedEmployee);
 
             Console.WriteLine("-> Download grid");
             var gridData = await apDataClient.GetEditGridPage(gridMetadata.Hwd);
@@ -50,15 +47,13 @@ namespace ControleApData
 
                 var parsedDate = Regex.Match(rec.Field1, @"^(\d+)/(\d+)\b");
                 var realDate = parsedDate.Success
-                    ? new DateTime(Year, Month, int.Parse(parsedDate.Groups[1].Value))
-                    : new DateTime(Year, Month, rec.Field72.Day);
+                    ? new DateTime(args.Year, args.Month, int.Parse(parsedDate.Groups[1].Value))
+                    : new DateTime(args.Year, args.Month, rec.Field72.Day);
 
                 Console.Write($"  -> Updating {realDate} to {start}-{end}. ");
                 var result = await apDataClient.UpdateProviderRecord(gridMetadata.Hwd, rec.Field1, realDate, rec.Status, start, end);
                 Console.WriteLine($"Success={result.Success}");
             }
-            Console.WriteLine("-- END --");
-            Console.ReadLine();
         }
     }
 }

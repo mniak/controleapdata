@@ -1,4 +1,6 @@
-﻿using ControleApData.Client;
+﻿using CommandLine;
+using ControleApData.Client;
+using PowerArgs;
 using SimpleInjector;
 using System.Net;
 using System.Net.Http;
@@ -8,10 +10,17 @@ namespace ControleApData
 {
     class Program
     {
-        static Task Main(string[] args)
+        static Task<int> Main(string[] args)
+        {
+            return CommandLine.Parser.Default.ParseArguments<Arguments>(args)
+                .MapResult(
+                    async x => await RunWithArguments(x), 
+                          errs => Task.FromResult(1));
+        }
+
+        static async Task<int> RunWithArguments(Arguments arguments)
         {
             var container = new Container();
-
             container.Register<Worker>();
             container.RegisterSingleton(() => new CookieContainer()); container.Register(() =>
             {
@@ -19,13 +28,14 @@ namespace ControleApData
                 handler.CookieContainer = container.GetInstance<CookieContainer>();
                 return handler;
             });
+            container.Register(() => arguments);
             container.Register(() => new HttpClient(container.GetInstance<HttpClientHandler>()));
             container.Register<ApDataLowLevelClient>();
             container.Register<ApDataClient>();
-            container.Register<GetApDataBaseUrl>(() => () => "https://cliente.apdata.com.br/braspag/.net/index.ashx");
 
             var worker = container.GetInstance<Worker>();
-            return worker.Work();
+            await worker.Work();
+            return 0;
         }
     }
 }
