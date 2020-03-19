@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "clean",
+            "label": "clean app",
             "command": "dotnet",
             "args": [
                 "clean",
@@ -18,7 +18,7 @@
             }
         },
         {
-            "label": "build",
+            "label": "build app",
             "command": "dotnet",
             "args": [
                 "build",
@@ -37,39 +37,19 @@
             }
         },
         {
-            "label": "clean release",
-            "command": "dotnet",
+            "label": "docker build app",
+            "type": "shell",
+            "command": "docker",
             "args": [
-                "clean",
-                "--configuration",
-                "Release",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "build",
+                "${workspaceFolder}",
+                "-t",
+                "app"
             ],
-            "type": "process",
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/fn"
-            }
+            "problemMatcher": []
         },
         {
-            "label": "publish",
-            "command": "dotnet",
-            "args": [
-                "publish",
-                "--configuration",
-                "Release",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "type": "process",
-            "dependsOn": "clean release",
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/fn"
-            }
-        },
-        {
+            "label": "build function",
             "type": "func",
             "dependsOn": "build",
             "options": {
