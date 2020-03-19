@@ -15,7 +15,7 @@ namespace Mniak.Automation
     {
         [FunctionName("FixTimecard")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = null)] HttpRequest req,
             ILogger logger)
         {
             logger.LogInformation("C# HTTP trigger function processed a request.");
