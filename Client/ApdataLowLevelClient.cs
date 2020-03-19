@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ApdataTimecardFixer.Client
 {
-    public class ApDataLowLevelClient
+    public class ApdataLowLevelClient
     {
         const string BasePath = ".net/index.ashx";
 
@@ -17,7 +17,7 @@ namespace ApdataTimecardFixer.Client
         private readonly HttpClient httpClient;
         private readonly CookieContainer cookies;
 
-        public ApDataLowLevelClient(Arguments args, HttpClient httpClient, CookieContainer cookies)
+        public ApdataLowLevelClient(Arguments args, HttpClient httpClient, CookieContainer cookies)
         {
             this.args = args ?? throw new ArgumentNullException(nameof(args));
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));

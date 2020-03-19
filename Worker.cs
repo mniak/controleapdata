@@ -9,10 +9,10 @@ namespace ApdataTimecardFixer
 {
     public class Worker
     {
-        private readonly Client.ApDataClient apDataClient;
+        private readonly Client.ApdataClient apDataClient;
         private readonly Arguments args;
 
-        public Worker(Client.ApDataClient apDataClient, Arguments args)
+        public Worker(Client.ApdataClient apDataClient, Arguments args)
         {
             this.apDataClient = apDataClient ?? throw new ArgumentNullException(nameof(apDataClient));
             this.args = args ?? throw new ArgumentNullException(nameof(args));

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace ApdataTimecardFixer.Client
 {
-    public class ApDataClient
+    public class ApdataClient
     {
-        private readonly ApDataLowLevelClient lowLevelClient;
+        private readonly ApdataLowLevelClient lowLevelClient;
 
-        public ApDataClient(ApDataLowLevelClient lowLevelClient)
+        public ApdataClient(ApdataLowLevelClient lowLevelClient)
         {
             this.lowLevelClient = lowLevelClient ?? throw new ArgumentNullException(nameof(lowLevelClient));
         }

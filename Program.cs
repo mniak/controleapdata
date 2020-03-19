@@ -30,8 +30,8 @@ namespace ApdataTimecardFixer
             });
             container.Register(() => arguments);
             container.Register(() => new HttpClient(container.GetInstance<HttpClientHandler>()));
-            container.Register<ApDataLowLevelClient>();
-            container.Register<ApDataClient>();
+            container.Register<ApdataLowLevelClient>();
+            container.Register<ApdataClient>();
 
             var worker = container.GetInstance<Worker>();
             await worker.Work();
