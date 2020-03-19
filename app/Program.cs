@@ -13,15 +13,17 @@ namespace ApdataTimecardFixer
     {
         static Task<int> Main(string[] args)
         {
+            var logger =  LoggerFactory.Create(builder => {
+                    builder.AddConsole();
+                })
+                .CreateLogger("App");
             return CommandLine.Parser.Default.ParseArguments<Arguments>(args)
                 .MapResult(
-                    async x => await Run(x, log => {
-                        log.AddConsole();
-                    }), 
+                    async x => await Run(x, logger), 
                           errs => Task.FromResult(1));
         }
 
-        public static async Task<int> Run(Arguments arguments, Action<ILoggingBuilder> logBuilder)
+        public static async Task<int> Run(Arguments arguments, ILogger logger)
         {
             var worker = new ServiceCollection()
                 .AddScoped<Worker>()
@@ -32,7 +34,7 @@ namespace ApdataTimecardFixer
                     handler.CookieContainer = svc.GetRequiredService<CookieContainer>();
                     return handler;
                 })
-                .AddLogging(logBuilder)
+                .AddSingleton(logger)
                 .AddScoped(svc => arguments)
                 .AddScoped(svc => new HttpClient(svc.GetRequiredService<HttpClientHandler>()))
                 .AddScoped<ApdataLowLevelClient>()

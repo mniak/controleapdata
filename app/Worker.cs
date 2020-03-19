@@ -12,9 +12,9 @@ namespace ApdataTimecardFixer
     {
         private readonly Client.ApdataClient apDataClient;
         private readonly Arguments args;
-        private readonly ILogger<Worker> log;
+        private readonly ILogger log;
 
-        public Worker(Client.ApdataClient apDataClient, Arguments args, ILogger<Worker> log)
+        public Worker(Client.ApdataClient apDataClient, Arguments args, ILogger log)
         {
             this.apDataClient = apDataClient ?? throw new ArgumentNullException(nameof(apDataClient));
             this.args = args ?? throw new ArgumentNullException(nameof(args));
