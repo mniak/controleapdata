@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using ApdataTimecardFixer;
+using System.Text;
 
 namespace Mniak.Automation
 {
@@ -15,9 +16,9 @@ namespace Mniak.Automation
     {
         [FunctionName("FixTimecard")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = null)] HttpRequest req,
-            ILogger logger)
+            [HttpTrigger(AuthorizationLevel.Function, "POST", Route = null)] HttpRequest req)
         {
+            var logger = new MemoryLogger();
             logger.LogInformation("C# HTTP trigger function processed a request.");
 
             using (var streamReader = new StreamReader(req.Body))
@@ -34,7 +35,9 @@ namespace Mniak.Automation
                     logger.LogError(ex, "Error while fixing timecard");
                 }
 
-                return new OkResult();
+                return new OkObjectResult(new {
+                    Messages = logger.Messages
+                });
             }
         }
     }
