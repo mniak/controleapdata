@@ -4,24 +4,80 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "clean",
             "command": "dotnet",
-            "type": "shell",
             "args": [
-                "build",
-                // Ask dotnet build to generate full paths for file names.
+                "clean",
                 "/property:GenerateFullPaths=true",
-                // Do not generate summary otherwise it leads to duplicate errors in Problems panel
                 "/consoleloggerparameters:NoSummary"
             ],
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/fn"
+            }
+        },
+        {
+            "label": "build",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "type": "process",
+            "dependsOn": "clean",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "presentation": {
-                "reveal": "silent"
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/fn"
+            }
+        },
+        {
+            "label": "clean release",
+            "command": "dotnet",
+            "args": [
+                "clean",
+                "--configuration",
+                "Release",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "type": "process",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/fn"
+            }
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "--configuration",
+                "Release",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "type": "process",
+            "dependsOn": "clean release",
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/fn"
+            }
+        },
+        {
+            "type": "func",
+            "dependsOn": "build",
+            "options": {
+                "cwd": "${workspaceFolder}/fn/bin/Debug/netcoreapp3.1"
             },
-            "problemMatcher": "$msCompile"
+            "command": "host start",
+            "isBackground": true,
+            "problemMatcher": "$func-watch"
         }
     ]
 }

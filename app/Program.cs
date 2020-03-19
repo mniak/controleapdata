@@ -18,7 +18,7 @@ namespace ApdataTimecardFixer
                           errs => Task.FromResult(1));
         }
 
-        static async Task<int> RunWithArguments(Arguments arguments)
+        public static async Task<int> RunWithArguments(Arguments arguments)
         {
             var container = new Container();
             container.Register<Worker>();

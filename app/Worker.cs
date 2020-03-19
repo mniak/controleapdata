@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace ApdataTimecardFixer
 {
@@ -11,25 +12,27 @@ namespace ApdataTimecardFixer
     {
         private readonly Client.ApdataClient apDataClient;
         private readonly Arguments args;
+        private readonly ILogger<Worker> log;
 
-        public Worker(Client.ApdataClient apDataClient, Arguments args)
+        public Worker(Client.ApdataClient apDataClient, Arguments args, ILogger<Worker> log)
         {
             this.apDataClient = apDataClient ?? throw new ArgumentNullException(nameof(apDataClient));
             this.args = args ?? throw new ArgumentNullException(nameof(args));
+            this.log = log ?? throw new ArgumentNullException(nameof(log));
         }
 
         public async Task Work()
         {
-            Console.WriteLine("-> Login");
+            log.LogInformation("-> Login");
             var loginResponse = await apDataClient.Login(args.Username, args.Password);
 
-            Console.WriteLine("-> Load screen");
+            log.LogInformation("-> Load screen");
             var gridMetadata = await apDataClient.CreateEditGridAndGetHeaders("ScreenConBatidasReaisClassifsProvider");
 
-            Console.WriteLine("-> Select month");
+            log.LogInformation("-> Selecting period {Month}/{Year}", args.Month, args.Year);
             var setProviderStatus = await apDataClient.SetProviderParams(gridMetadata.Hwd, args.Year, args.Month, loginResponse.SelectedEmployee);
 
-            Console.WriteLine("-> Download grid");
+            log.LogInformation("-> Download grid");
             var gridData = await apDataClient.GetEditGridPage(gridMetadata.Hwd);
 
             var emptyWorkdays = gridData.Recs
@@ -37,7 +40,7 @@ namespace ApdataTimecardFixer
                 .Where(x => x.Status == StatusDoDia.Normal)
                 .Where(x => string.IsNullOrEmpty(x.Entrada1) || string.IsNullOrEmpty(x.Saida1));
 
-            Console.WriteLine("-> Fill empty boxes");
+            log.LogInformation("-> Fill empty boxes");
             foreach (var rec in emptyWorkdays)
             {
                 var parsedShift = Regex.Match(rec.Field73, @"^\d+ - (\d+:\d+) (\d+:\d+) (\d+:\d+) (\d+:\d+)\b");
@@ -50,9 +53,9 @@ namespace ApdataTimecardFixer
                     ? new DateTime(args.Year, args.Month, int.Parse(parsedDate.Groups[1].Value))
                     : new DateTime(args.Year, args.Month, rec.Field72.Day);
 
-                Console.Write($"  -> Updating {realDate} to {start}-{end}. ");
+                log.LogInformation($"  -> Updating {realDate} to {start}-{end}. ");
                 var result = await apDataClient.UpdateProviderRecord(gridMetadata.Hwd, rec.Field1, realDate, rec.Status, start, end);
-                Console.WriteLine($"Success={result.Success}");
+                log.LogInformation($"Success={result.Success}");
             }
         }
     }
